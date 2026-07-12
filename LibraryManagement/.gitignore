@@ -1,2 +1,6 @@
 target/
 *.class
+LibraryManagement/target/
+LibraryManagement/*.class
+LibraryManagement/*.zip
+LibraryManagement/#/home/archkinux/Documents/java/LibraryManagement/
