@@ -31,5 +31,6 @@ echo ""
 # 3. 运行程序
 echo "🚀 启动程序..."
 echo "=========================================="
-echo "Done !"
+echo "Done"
+echo "Ciallo~(∠・ ω < )⌒ ★"
 java -jar target/LibraryManagement-1.0-SNAPSHOT.jar
