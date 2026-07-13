@@ -2,6 +2,9 @@ package com.yourname.library.ui;
 
 import javax.swing.*;
 import java.awt.*;
+import com.yourname.library.ui.Book_Panel.Home;
+import com.yourname.library.ui.Book_Panel.ViewBook;
+import com.yourname.library.ui.Book_Panel.BorrowBooks;
 import com.yourname.library.ui.Book_Panel.UserSettings;
 
 public class BookPanel extends JPanel {
@@ -36,6 +39,12 @@ public class BookPanel extends JPanel {
     private static final int BUTTON_WIDTH = 130;       // 按钮宽度
     private static final int BUTTON_HEIGHT = 40;       // 按钮高度
     private static final int BUTTON_GAP = 10;          // 按钮间距
+
+    // ========== 内容区域尺寸 ==========
+    private static final int CONTENT_X = 160;
+    private static final int CONTENT_Y = 110;
+    private static final int CONTENT_WIDTH = 820;
+    private static final int CONTENT_HEIGHT = 470;  
     
     public BookPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
@@ -132,7 +141,7 @@ public class BookPanel extends JPanel {
     }
     
     //用于切换窗体
-   private void ShowPanel(short panel) {
+   private void ShowPanel(int panel) {
     // 1. 移除当前页面
     if (Min_Panel != null) {
         remove(Min_Panel);
@@ -142,21 +151,21 @@ public class BookPanel extends JPanel {
     if (panel == 0) {
         // 主页
         if (Home_Panel == null) {
-            Home_Panel = new HomePanel();
+            Home_Panel = new Home();
         }
         Min_Panel = Home_Panel;
         
     } else if (panel == 1) {
         // 查看书籍
         if (ViewBooks_Panel == null) {
-            ViewBooks_Panel = new ViewBooksPanel();
+            ViewBooks_Panel = new ViewBook();
         }
         Min_Panel = ViewBooks_Panel;
         
     } else if (panel == 2) {
         // 借阅书籍
         if (BorrowBooks_Panel == null) {
-            BorrowBooks_Panel = new BorrowBooksPanel();
+            BorrowBooks_Panel = new BorrowBooks();
         }
         Min_Panel = BorrowBooks_Panel;
         
@@ -170,7 +179,7 @@ public class BookPanel extends JPanel {
     } else {
         // 默认：显示主页
         if (Home_Panel == null) {
-            Home_Panel = new HomePanel();
+            Home_Panel = new Home();
         }
         Min_Panel = Home_Panel;
     }
@@ -218,21 +227,21 @@ public class BookPanel extends JPanel {
 
     //主页 动作处理
     public void btnHome_Action(){
-        
+        ShowPanel(0);
     }
 
     //查看书籍 动作处理
     public void btnViewBooks_Action(){
-
+        ShowPanel(1);
     }
     
     //借阅书籍 动作处理
     public void btnBorrowBooks_Action(){
-
+        ShowPanel(2);
     }
 
     //用户与设置 动作处理
     public void btnUserSettings_Action(){
-        mainFrame.showLoginPanel();
+       ShowPanel(3);
     }
 }

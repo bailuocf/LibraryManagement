@@ -12,11 +12,9 @@ public class UserSettings extends JPanel{
     }
     private void InitUI(){
         JLabel la = new JLabel("设置页面");
-        la.setBounds(0,0,10,10);
         add(la);
 
         JButton bu = new JButton();
-        bu.setBounds(10,40,100,40);
         add(bu);
     }
 }
