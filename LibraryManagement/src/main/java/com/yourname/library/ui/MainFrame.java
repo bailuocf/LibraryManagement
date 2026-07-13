@@ -25,7 +25,7 @@ public class MainFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setLayout(new BorderLayout());
-        
+        frame.setResizable(false);
         // 默认显示登录面板
         showLoginPanel();
     }
@@ -35,21 +35,22 @@ public class MainFrame {
             loginPanel = new LoginPanel(this);
         }
         switchPanel(loginPanel);
+        frame.setSize(350,250);
     }
-    //切换到 -> 登陆窗口
+    //切换到 -> 用户窗口
     public void showUserPanel(){
         if(userPanel == null){
             userPanel = new UserPanel(this);
         }
         switchPanel(userPanel);
     }
-    //切换到 -> 登陆窗口
+    //切换到 -> 书籍窗口
     public void showBookPanel() {
         if (bookPanel == null) {
             bookPanel = new BookPanel(this);
         }
         switchPanel(bookPanel);
-        frame.setSize(1024, 720);
+        frame.setSize(1000, 700);
     }
 
      //切换面板

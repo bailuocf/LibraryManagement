@@ -11,9 +11,11 @@ public class BookPanel extends JPanel {
         this.mainFrame = mainFrame;
         initUI();
     }
-    
+
     private void initUI() {
-       JLabel titleLabel = new JLabel("Book Title");
-        add(titleLabel);
+        //设置布局为null
+        setLayout(null);
+
+
     }
 }   
