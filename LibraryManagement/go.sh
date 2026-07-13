@@ -31,5 +31,5 @@ echo ""
 # 3. 运行程序
 echo "🚀 启动程序..."
 echo "=========================================="
-echo ""
+echo "Done !"
 java -jar target/LibraryManagement-1.0-SNAPSHOT.jar
