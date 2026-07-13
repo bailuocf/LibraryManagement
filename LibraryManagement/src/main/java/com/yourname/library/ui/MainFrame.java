@@ -10,7 +10,6 @@ public class MainFrame {
     // 缓存所有面板
     private LoginPanel loginPanel;//登陆面板
     private BookPanel bookPanel;//图书管理面板
-    private UserPanel userPanel;//用户管理面板
 
     public MainFrame() {
         initUI();
@@ -37,20 +36,13 @@ public class MainFrame {
         switchPanel(loginPanel);
         frame.setSize(350,250);
     }
-    //切换到 -> 用户窗口
-    public void showUserPanel(){
-        if(userPanel == null){
-            userPanel = new UserPanel(this);
-        }
-        switchPanel(userPanel);
-    }
     //切换到 -> 书籍窗口
     public void showBookPanel() {
         if (bookPanel == null) {
             bookPanel = new BookPanel(this);
         }
         switchPanel(bookPanel);
-        frame.setSize(1000, 700);
+        frame.setSize(1000, 600);
     }
 
      //切换面板
