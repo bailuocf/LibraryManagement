@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import com.yourname.library.ui.Book_Panel.Home;
 import com.yourname.library.ui.Book_Panel.ViewBook;
+import com.yourname.library.util.FontLoader;
 import com.yourname.library.ui.Book_Panel.BorrowBooks;
 import com.yourname.library.ui.Book_Panel.UserSettings;
 
@@ -57,8 +58,8 @@ public class BookPanel extends JPanel {
         setBackground(BG_CONTENT);
         
         // ========== 顶部标题 ==========
-        titleLabel = new JLabel("📚 图书管理系统");
-        titleLabel.setFont(new Font("微软雅黑", Font.BOLD, 28));
+        titleLabel = new JLabel("  图书管理系统");
+        titleLabel.setFont(FontLoader.getBold(28f));
         titleLabel.setForeground(TEXT_WHITE);
         titleLabel.setBounds(30, 32, 280, 40);
         add(titleLabel);
@@ -67,7 +68,7 @@ public class BookPanel extends JPanel {
         // 4个按钮 + 3个间距 = 4 * 40 + 3 * 10 = 160 + 30 = 190
         // 总高度 190，足够覆盖侧边栏
         
-        Font btnFont = new Font("微软雅黑", Font.PLAIN, 14);
+        Font btnFont = FontLoader.getBold(18f);
         int startY = HEADER_HEIGHT + 20;  // 从顶部色块底部 + 20px 开始
         
         btnHome = createMenuButton("首页", btnFont);
