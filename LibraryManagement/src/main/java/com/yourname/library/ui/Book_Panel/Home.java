@@ -7,10 +7,17 @@ public class Home extends JPanel{
       InitUI();
     }
     private void InitUI(){
+    // CONTENT_WIDTH = 820;
+    // CONTENT_HEIGHT = 470;  
+        setLayout(null);
         JLabel la = new JLabel("主页面");
         add(la);
 
-        JButton bu = new JButton();
-        add(bu);
+
+    }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        
     }
 }

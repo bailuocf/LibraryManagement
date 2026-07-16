@@ -41,9 +41,9 @@ public class BookPanel extends JPanel {
     private static final int BUTTON_GAP = 10;          // 按钮间距
 
     // ========== 内容区域尺寸 ==========
-    private static final int CONTENT_X = 160;
-    private static final int CONTENT_Y = 110;
-    private static final int CONTENT_WIDTH = 820;
+    private static final int CONTENT_X = 150;
+    private static final int CONTENT_Y = 100;
+    private static final int CONTENT_WIDTH = 850;
     private static final int CONTENT_HEIGHT = 470;  
     
     public BookPanel(MainFrame mainFrame) {
