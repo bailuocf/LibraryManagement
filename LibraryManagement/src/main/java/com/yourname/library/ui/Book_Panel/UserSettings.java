@@ -1,7 +1,12 @@
 package com.yourname.library.ui.Book_Panel;
 
+import com.yourname.library.util.AvatarImageService;
+
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class UserSettings extends JPanel{
     public UserSettings(){
@@ -12,14 +17,24 @@ public class UserSettings extends JPanel{
     private ImageIcon scaledIcon;
     private ImageIcon settingsIcon;
     JButton settings_button;
+    private JButton selectAvatarButton;
+
     private void InitUI(){
         setLayout(null);
 
-        //头像
-        ImageIcon icon = new ImageIcon("image/TouXiang.png");
-        Image img = icon.getImage();
-        Image scaled = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-        scaledIcon = new ImageIcon(scaled);
+        loadSavedAvatar();
+
+        selectAvatarButton = new JButton("选择头像");
+        selectAvatarButton.setBounds(10, 120, 100, 30);
+        selectAvatarButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        selectAvatarButton.addActionListener(e -> selectAvatar());
+        add(selectAvatarButton);
+
+        JLabel formatLabel = new JLabel("支持 JXL/JPG/PNG");
+        formatLabel.setForeground(Color.GRAY);
+        formatLabel.setFont(new Font("微软雅黑", Font.PLAIN, 11));
+        formatLabel.setBounds(10, 152, 130, 20);
+        add(formatLabel);
 
         // ========== 设置按钮 ==========
         ImageIcon settings_icon = new ImageIcon("image/settings.png");
@@ -70,16 +85,82 @@ protected void paintComponent(Graphics g) {
             int width = scaledIcon.getIconWidth();
             int height = scaledIcon.getIconHeight();
             if (width > 0 && height > 0) {
-              g.drawImage(scaledIcon.getImage(), 10, 10, this);
+              int x = 10 + (95 - width) / 2;
+              int y = 10 + (95 - height) / 2;
+              g.drawImage(scaledIcon.getImage(), x, y, this);
             } else {
-             System.err.println("error(3): 头像文件无效");
               showNoAvatarText(g);
            }
      } else {
-         System.err.println("error(3): 未识别到头像png文件");
             showNoAvatarText(g);
        }
 }
+
+    private void selectAvatar() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("选择头像图片");
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.setFileFilter(new FileNameExtensionFilter(
+                "头像图片 (*.jxl, *.png, *.jpg, *.jpeg)",
+                "jxl", "png", "jpg", "jpeg"
+        ));
+
+        if (fileChooser.showOpenDialog(this) != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
+
+        try {
+            BufferedImage image = AvatarImageService.importAvatar(
+                    fileChooser.getSelectedFile()
+            );
+            updateAvatarPreview(image);
+            JOptionPane.showMessageDialog(this, "头像已保存");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    e.getMessage(),
+                    "头像加载失败",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
+    private void loadSavedAvatar() {
+        try {
+            BufferedImage image = AvatarImageService.loadAvatar();
+            if (image != null) {
+                updateAvatarPreview(image);
+            }
+        } catch (IOException e) {
+            scaledIcon = null;
+            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(
+                    this,
+                    e.getMessage(),
+                    "头像加载失败",
+                    JOptionPane.WARNING_MESSAGE
+            ));
+        }
+    }
+
+    private void updateAvatarPreview(BufferedImage image) {
+        int originalWidth = image.getWidth();
+        int originalHeight = image.getHeight();
+        double scale = Math.min(
+                95.0 / originalWidth,
+                95.0 / originalHeight
+        );
+        int previewWidth = Math.max(1, (int) Math.round(originalWidth * scale));
+        int previewHeight = Math.max(1, (int) Math.round(originalHeight * scale));
+
+        Image preview = image.getScaledInstance(
+                previewWidth,
+                previewHeight,
+                Image.SCALE_SMOOTH
+        );
+        scaledIcon = new ImageIcon(preview);
+        repaint();
+    }
+
     //显示没有头像时的文本
     private void showNoAvatarText(Graphics g) {
     g.setColor(Color.GRAY);
